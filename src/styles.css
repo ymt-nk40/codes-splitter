@@ -1,0 +1,254 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-background-muted: var(--background-muted);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-brand: var(--brand);
+  --color-brand-muted: var(--brand-muted);
+  --color-border: var(--border);
+  --color-border-muted: var(--border-muted);
+  --color-surface: var(--surface);
+  --color-selection-bg: var(--selection-bg);
+  --color-selection-text: var(--selection-text);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-muted: var(--background-muted);
+  --color-muted-foreground: var(--foreground-muted);
+  --color-accent: var(--brand-muted);
+  --color-accent-foreground: var(--foreground);
+  --color-card: var(--surface);
+  --color-card-foreground: var(--foreground);
+  --color-popover: var(--background-muted);
+  --color-popover-foreground: var(--foreground);
+  --color-destructive: var(--destructive);
+  --color-ring: var(--brand);
+  --color-input: var(--border);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+}
+
+:root,
+[data-theme="light"] {
+  --color-background: #eee;
+  --color-foreground: #141314;
+  --color-background-muted: #f7f7f7;
+  --color-foreground-muted: #696869;
+  --color-brand: #fb460d;
+  --color-brand-muted: #fd8d68;
+  --color-border: #0003;
+  --color-border-muted: #0000001a;
+  --color-surface: #d5d5d5;
+  --color-selection-bg: #fb460d;
+  --color-selection-text: #eee;
+  --background: var(--color-background);
+  --foreground: var(--color-foreground);
+  --background-muted: var(--color-background-muted);
+  --foreground-muted: var(--color-foreground-muted);
+  --brand: var(--color-brand);
+  --brand-muted: var(--color-brand-muted);
+  --border: var(--color-border);
+  --border-muted: var(--color-border-muted);
+  --surface: var(--color-surface);
+  --selection-bg: var(--color-selection-bg);
+  --selection-text: var(--color-selection-text);
+  --primary: #fb460d;
+  --primary-foreground: #eee;
+  --destructive: #c42b2b;
+  --success: #217a4a;
+  --warning: #9a7010;
+  --info: #2d6280;
+  --shadow-border:
+    0px 0px 0px 1px rgba(0, 0, 0, 0.06),
+    0px 1px 2px -1px rgba(0, 0, 0, 0.06),
+    0px 2px 4px 0px rgba(0, 0, 0, 0.04);
+  --lightningcss-light: initial;
+  --lightningcss-dark: ;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --color-background: #141314;
+  --color-foreground: #eee;
+  --color-background-muted: #1a1a1a;
+  --color-foreground-muted: #818081;
+  --color-brand: #fd551d;
+  --color-brand-muted: #fd8d68;
+  --color-border: #eeeeee1a;
+  --color-border-muted: #eeeeee0d;
+  --color-surface: #333;
+  --color-selection-bg: #fd551d;
+  --color-selection-text: #141314;
+  --background: var(--color-background);
+  --foreground: var(--color-foreground);
+  --background-muted: var(--color-background-muted);
+  --foreground-muted: var(--color-foreground-muted);
+  --brand: var(--color-brand);
+  --brand-muted: var(--color-brand-muted);
+  --border: var(--color-border);
+  --border-muted: var(--color-border-muted);
+  --surface: var(--color-surface);
+  --selection-bg: var(--color-selection-bg);
+  --selection-text: var(--color-selection-text);
+  --primary: #fd551d;
+  --primary-foreground: #141314;
+  --destructive: #f87171;
+  --success: #3dbf7a;
+  --warning: #e0b03a;
+  --info: #6aa8c8;
+  --shadow-border: 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --lightningcss-light: ;
+  --lightningcss-dark: initial;
+  color-scheme: dark;
+}
+
+[data-theme="brand"] {
+  --color-background: #fb460d;
+  --color-foreground: #141314;
+  --color-background-muted: #fd7142;
+  --color-foreground-muted: #1a1a1a;
+  --color-brand: #fd551d;
+  --color-brand-muted: #fd8d68;
+  --color-border: #0000004d;
+  --color-border-muted: #0003;
+  --color-surface: #fd8d68;
+  --color-selection-bg: #eee;
+  --color-selection-text: #141314;
+  --background: var(--color-background);
+  --foreground: var(--color-foreground);
+  --background-muted: var(--color-background-muted);
+  --foreground-muted: var(--color-foreground-muted);
+  --brand: var(--color-brand);
+  --brand-muted: var(--color-brand-muted);
+  --border: var(--color-border);
+  --border-muted: var(--color-border-muted);
+  --surface: var(--color-surface);
+  --selection-bg: var(--color-selection-bg);
+  --selection-text: var(--color-selection-text);
+  --primary: #141314;
+  --primary-foreground: #eee;
+  --destructive: #6b1010;
+  --success: #0e3d24;
+  --warning: #3d2e04;
+  --info: #0e2a38;
+  --shadow-border: 0 0 0 1px rgba(0, 0, 0, 0.18);
+  --lightningcss-light: initial;
+  --lightningcss-dark: ;
+  color-scheme: light;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    height: 100%;
+    overflow: hidden;
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background: var(--color-selection-bg);
+    color: var(--color-selection-text);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer utilities {
+  .safe-pt {
+    padding-top: max(0.5rem, env(safe-area-inset-top));
+  }
+
+  .safe-pb {
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+  }
+
+  .safe-px {
+    padding-left: max(0.75rem, env(safe-area-inset-left));
+    padding-right: max(0.75rem, env(safe-area-inset-right));
+  }
+
+  .touch-target {
+    min-height: 2.75rem;
+    min-width: 2.75rem;
+  }
+
+  .panel-scroll {
+    min-width: 0;
+    min-height: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+
+  .no-page-overflow {
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.monaco-editor,
+.monaco-editor .overflow-guard {
+  max-width: 100%;
+}
+
+[data-panel-resize-handle-enabled] {
+  background: var(--color-border);
+  transition: background-color 150ms ease-out;
+}
+
+[data-panel-resize-handle-enabled]:hover,
+[data-panel-resize-handle-enabled]:focus-visible {
+  background: var(--color-brand);
+}
