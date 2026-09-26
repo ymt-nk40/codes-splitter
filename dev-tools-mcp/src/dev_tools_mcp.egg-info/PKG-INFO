@@ -1,0 +1,83 @@
+Metadata-Version: 2.4
+Name: dev-tools-mcp
+Version: 0.1.0
+Summary: Secure MCP developer tools for repository investigation
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: mcp>=1.9.0
+
+# dev-tools-mcp
+
+A production-oriented FastMCP server for safely inspecting and modifying a user-selected software repository. It is designed for JavaScript/TypeScript, React/Next.js, bundles, source recovery, Git inspection, and controlled commands.
+
+## Installation
+
+Requires Python 3.11+.
+
+```bash
+python -m venv .venv
+. .venv/bin/activate
+pip install -e .
+```
+
+Set `DEV_TOOLS_WORKSPACE` to an absolute repository path. Optional settings are `DEV_TOOLS_MAX_READ_BYTES`, `DEV_TOOLS_MAX_OUTPUT_BYTES`, `DEV_TOOLS_COMMAND_TIMEOUT`, and comma-separated `DEV_TOOLS_ALLOWED_COMMANDS`.
+
+## Run
+
+```bash
+DEV_TOOLS_WORKSPACE=/absolute/path/to/repository dev-tools-mcp
+```
+
+The server uses FastMCP's standard stdio transport. Generic MCP clients configure the executable and arguments according to their own schema. For clients supporting the common JSON shape:
+
+```json
+{"mcpServers":{"dev-tools":{"command":"/absolute/path/to/.venv/bin/dev-tools-mcp","env":{"DEV_TOOLS_WORKSPACE":"/absolute/path/to/repository"}}}}
+```
+
+Client-specific configuration keys differ; consult that client's MCP documentation rather than copying this example blindly.
+
+## Tools
+
+`project_status`, `list_directory`, `read_text_file`, `write_text_file`, `create_directory`, `delete_path`, `file_info`, `search_text`, `find_files`, `find_symbol`, `analyze_source_file`, `find_react_components`, `find_imports`, `find_exports`, `analyze_bundle`, `search_bundle`, `extract_source_map_reference`, `git_status`, `git_diff`, `git_log`, `git_show`, and `run_command`.
+
+## Security model
+
+Every path is resolved and checked with `Path.relative_to`, including symlink resolution, so traversal and symlink escapes are rejected. The workspace root cannot be deleted, deletion requires `confirmation=true`, and directories are only removed when empty. Reads and outputs are bounded and report truncation. Git tools are read-only. Shell execution is disabled for commands outside the explicit allowlist, runs in the workspace, has a timeout, and returns bounded output. Do not allow interpreters or package managers in an untrusted workspace.
+
+## Example workflows
+
+- Call `project_status`, then `list_directory` and `find_files` to map a repository.
+- Use `search_text`, `analyze_source_file`, and `find_react_components` to investigate a UI.
+- Use `analyze_bundle` and `extract_source_map_reference` without downloading external resources.
+- Review changes with `git_status`, `git_diff`, and `git_log`.
+
+## Troubleshooting
+
+If startup fails, verify the workspace exists and is readable, use an absolute path, and confirm Python 3.11+. If a command is rejected, add its executable name to `DEV_TOOLS_ALLOWED_COMMANDS` only when you trust the workspace. Run tests with `pytest` from this directory.
+
+## Verification
+
+```bash
+DEV_TOOLS_WORKSPACE="$PWD" pytest
+DEV_TOOLS_WORKSPACE="$PWD" dev-tools-mcp
+```
+
+The second command starts stdio and waits for an MCP client; it is a startup smoke check.
+
+## Project tree
+
+```text
+dev-tools-mcp/
+├── pyproject.toml
+├── README.md
+├── .env.example
+├── .gitignore
+├── src/dev_tools/
+│   ├── __init__.py
+│   ├── config.py
+│   ├── server.py
+│   └── tools/__init__.py
+└── tests/
+    ├── test_security.py
+    └── test_tools.py
+```

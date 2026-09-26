@@ -1,0 +1,2 @@
+[console_scripts]
+dev-tools-mcp = dev_tools.server:main

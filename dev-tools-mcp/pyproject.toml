@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dev-tools-mcp"
+version = "0.1.0"
+description = "Secure MCP developer tools for repository investigation"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["mcp>=1.9.0"]
+
+[project.scripts]
+dev-tools-mcp = "dev_tools.server:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "-q"
